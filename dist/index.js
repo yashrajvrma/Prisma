@@ -34,7 +34,7 @@ function createUser(_a) {
 // createUser({
 //   firstName: "hitler",
 //   lastName: "sharma",
-//   email: "hitler5@gmail.com",
+//   email: "hitler4@gmail.com",
 //   password: "hitler1123",
 // });
 // update user
@@ -60,12 +60,47 @@ function updateUser(_a) {
 // get user detail
 function getUser(firstName) {
     return __awaiter(this, void 0, void 0, function* () {
-        const res = yield prisma.user.findMany({
+        // get multiple user
+        const findMultipleUsers = yield prisma.user.findMany({
             where: {
                 firstName
             },
         });
+        // find single user
+        const firstSingleUsers = yield prisma.user.findFirst({
+            where: {
+                firstName
+            },
+        });
+        console.log(findMultipleUsers);
+        console.log(findMultipleUsers);
+    });
+}
+// getUser("hitler")
+// delete user
+function deleteUser(userId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const res = yield prisma.user.delete({
+            where: {
+                id: userId
+            }
+        });
         console.log(res);
     });
 }
-getUser("hitler");
+// deleteUser(1)
+// soft delete user - hide them by creating a newfield isDisable and dont delete user completely
+function softDelete(userId) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const res = yield prisma.user.update({
+            data: {
+                isDisable: true
+            },
+            where: {
+                id: userId
+            }
+        });
+        console.log(res);
+    });
+}
+softDelete(2);

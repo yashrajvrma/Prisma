@@ -6,6 +6,7 @@ interface createParams {
   firstName: string;
   lastName: string;
   password: string;
+  isDisable : boolean
 }
 interface updateParams {
   email : string
@@ -39,7 +40,7 @@ async function createUser({
 // createUser({
 //   firstName: "hitler",
 //   lastName: "sharma",
-//   email: "hitler5@gmail.com",
+//   email: "hitler4@gmail.com",
 //   password: "hitler1123",
 // });
 
@@ -86,4 +87,29 @@ async function getUser(firstName : string){
 }
 // getUser("hitler")
 
+// delete user
+async function deleteUser(userId : number){
+  const res = await prisma.user.delete({
+    where : {
+      id : userId
+    }
+  })
+  console.log(res);
+}
+// deleteUser(1)
+
+
+// soft delete user - hide them by creating a newfield isDisable and dont delete user completely
+async function softDelete(userId : number){
+  const res = await prisma.user.update({
+    data : {
+      isDisable : true
+    },
+    where : {
+      id : userId
+    }
+  })
+  console.log(res);
+}
+softDelete(2)
 

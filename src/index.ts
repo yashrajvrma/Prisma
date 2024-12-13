@@ -39,7 +39,7 @@ createUser({
   firstName: "hitler",
   lastName: "sharma",
   email: "hitler3@gmail.com",
-  password: "hitler123",
+  password: "hitler1123",
 });
 
 async function updateUser({ email, firstName, lastName }: updateParams) {

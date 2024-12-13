@@ -8,11 +8,12 @@ interface createParams {
   password: string;
 }
 interface updateParams {
-  email: string;
-  firstName: string;
-  lastName: string;
+  email : string
+  firstName?: string;
+  lastName?: string;
 }
 
+// create user
 async function createUser({
   email,
   firstName,
@@ -35,22 +36,54 @@ async function createUser({
   });
   console.log(res);
 }
-createUser({
-  firstName: "hitler",
-  lastName: "sharma",
-  email: "hitler3@gmail.com",
-  password: "hitler1123",
-});
+// createUser({
+//   firstName: "hitler",
+//   lastName: "sharma",
+//   email: "hitler5@gmail.com",
+//   password: "hitler1123",
+// });
 
-async function updateUser({ email, firstName, lastName }: updateParams) {
-  prisma.user.update({
+
+// update user
+async function updateUser({ email,firstName, lastName }: updateParams) {
+  const res = await prisma.user.update({
     data: {
-      email,
       firstName,
       lastName,
     },
     where: {
-      email,
+      email 
     },
   });
+  console.log(res);
 }
+// updateUser({
+//   email : "hitler@gmail.com",
+//   firstName : "swastik",
+//   lastName : "Modi"
+// })
+
+
+// get user detail
+async function getUser(firstName : string){
+  // get multiple user
+  const findMultipleUsers = await prisma.user.findMany({
+    where : {
+      firstName 
+    },
+  })
+
+
+ // find single user
+  const firstSingleUsers = await prisma.user.findFirst({
+    where : {
+      firstName 
+    },
+  })
+
+  console.log(findMultipleUsers);
+  console.log(findMultipleUsers);
+}
+// getUser("hitler")
+
+

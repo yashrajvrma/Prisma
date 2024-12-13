@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const client_1 = require("@prisma/client");
 const prisma = new client_1.PrismaClient();
+// create user
 function createUser(_a) {
     return __awaiter(this, arguments, void 0, function* ({ email, firstName, lastName, password, }) {
         const res = yield prisma.user.create({
@@ -30,23 +31,41 @@ function createUser(_a) {
         console.log(res);
     });
 }
-createUser({
-    firstName: "hitler",
-    lastName: "sharma",
-    email: "hitler3@gmail.com",
-    password: "hitler123",
-});
+// createUser({
+//   firstName: "hitler",
+//   lastName: "sharma",
+//   email: "hitler5@gmail.com",
+//   password: "hitler1123",
+// });
+// update user
 function updateUser(_a) {
     return __awaiter(this, arguments, void 0, function* ({ email, firstName, lastName }) {
-        prisma.user.update({
+        const res = yield prisma.user.update({
             data: {
-                email,
                 firstName,
                 lastName,
             },
             where: {
-                email,
+                email
             },
         });
+        console.log(res);
     });
 }
+// updateUser({
+//   email : "hitler@gmail.com",
+//   firstName : "swastik",
+//   lastName : "Modi"
+// })
+// get user detail
+function getUser(firstName) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const res = yield prisma.user.findMany({
+            where: {
+                firstName
+            },
+        });
+        console.log(res);
+    });
+}
+getUser("hitler");
